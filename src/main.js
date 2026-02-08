@@ -85,7 +85,7 @@ const { applyFiltering, updateIndexes } = initFiltering(
   sampleTable.filter.elements,
 );
 
-const applySearching = initSearching(sampleTable.search.elements.search.name); // передаём ключ элемента поиска
+const applySearching = initSearching(sampleTable.search); // передаём ключ элемента поиска
 
 const appRoot = document.querySelector("#app");
 appRoot.appendChild(sampleTable.container);
@@ -95,7 +95,6 @@ async function init() {
   updateIndexes(sampleTable.filter.elements, {
     searchBySeller: indexes.sellers,
   });
-  return indexes;
 }
 
 init().then(render);
