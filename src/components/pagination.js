@@ -4,7 +4,7 @@ export const initPagination = (
   { pages, fromRow, toRow, totalRows },
   createPage,
 ) => {
-  // @todo: #2.3 — подготовить шаблон кнопки для страницы и очистить контейнер
+  // #2.3 — подготовить шаблон кнопки для страницы и очистить контейнер
   const pageTemplate = pages.firstElementChild.cloneNode(true); // в качестве шаблона берём первый элемент из контейнера со страницами
   pages.firstElementChild.remove(); // и удаляем его (предполагаем, что там больше ничего, как вариант, можно и всё удалить из pages)
   let pageCount;
@@ -12,9 +12,8 @@ export const initPagination = (
   const applyPagination = (query, state, action) => {
     const limit = state.rowsPerPage;
     let page = state.page;
-
-    // переносим код, который делали под @todo: #2.6
-    // @todo: #2.6 — обработать действия
+    
+    // @#2.6 — обработать действия
     if (action)
       switch (action.name) {
         case "prev":
