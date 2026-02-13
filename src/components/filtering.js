@@ -1,5 +1,5 @@
 export function initFiltering(elements) {
-  // @todo: #4.1 — заполнить выпадающие списки опциями
+  // #4.1 — заполнить выпадающие списки опциями
   const updateIndexes = (elements, indexes) => {
     Object.keys(indexes) // Получаем ключи из объекта
       .forEach((elementName) => {
@@ -18,22 +18,13 @@ export function initFiltering(elements) {
       });
   };
   const applyFiltering = (query, state, action) => {
-    // @todo: #4.2 — обработать очистку поля
+    // #4.2 — обработать очистку поля
     if (action && action.name === "clear") {
-      const filterWrappers = document.querySelectorAll(".filter-wrapper");
-
-      filterWrappers.forEach((filterWrapper) => {
-        const input = filterWrapper.querySelector("input");
-        const button = filterWrapper.querySelector("button");
-
-        button.addEventListener("click", function () {
-          input.value = "";
-          const field = button.getAttribute("data-field");
-          state[field].value = "";
-        });
-      });
+      const input = action.parentElement.querySelector("input");
+      input.value = '';
+      state[action.dataset.field] = '';
     }
-    // @todo: #4.5 — отфильтровать данные, используя компаратор
+    // #4.5 — отфильтровать данные, используя компаратор
     const filter = {};
     Object.keys(elements).forEach((key) => {
       if (elements[key]) {

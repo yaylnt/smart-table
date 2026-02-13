@@ -5,7 +5,7 @@ import { initData } from "./data.js";
 import { processFormData } from "./lib/utils.js";
 
 import { initTable } from "./components/table.js";
-// @todo: подключение
+// подключение
 import { initPagination } from "./components/pagination.js";
 import { initSorting } from "./components/sorting.js";
 import { initFiltering } from "./components/filtering.js";
@@ -22,9 +22,14 @@ function collectState() {
   const state = processFormData(new FormData(sampleTable.container));
   const rowsPerPage = parseInt(state.rowsPerPage); // приведём количество страниц к числу
   const page = parseInt(state.page ?? 1); // номер страницы по умолчанию 1 и тоже число
+  const total = [
+    parseFloat(state.totalFrom),
+    parseFloat(state.totalTo), 
+  ];
 
   return {
     ...state,
+    total,
     rowsPerPage,
     page,
   };
@@ -39,9 +44,9 @@ async function render(action) {
   let query = {};
   // использование
 
-  query = applySorting(query, state, action);
   query = applySearching(query, state, action);
   query = applyFiltering(query, state, action);
+  query = applySorting(query, state, action);
   query = applyPagination(query, state, action);
 
   const { total, items } = await api.getRecords(query); // запрашиваем данные с собранными параметрами
@@ -75,7 +80,7 @@ const { applyPagination, updatePagination } = initPagination(
   },
 );
 
-// Нам нужно передать сюда массив элементов, которые вызывают сортировку, чтобы изменять их визуальное представление
+// Передаём сюда массив элементов, которые вызывают сортировку, чтобы изменять их визуальное представление
 const applySorting = initSorting([
   sampleTable.header.elements.sortByDate,
   sampleTable.header.elements.sortByTotal,

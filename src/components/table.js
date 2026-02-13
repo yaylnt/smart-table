@@ -11,7 +11,7 @@ export function initTable(settings, onAction) {
   const { tableTemplate, rowTemplate, before, after } = settings;
   const root = cloneTemplate(tableTemplate);
 
-  // @todo: #1.2 —  вывести дополнительные шаблоны до и после таблицы
+  // #1.2 —  вывести дополнительные шаблоны до и после таблицы
 
   before.reverse().forEach((subName) => {
     root[subName] = cloneTemplate(subName);
@@ -22,7 +22,7 @@ export function initTable(settings, onAction) {
     root.container.append(root[subName].container);
   });
 
-  // @todo: #1.3 —  обработать события и вызвать onAction()
+  // #1.3 —  обработать события и вызвать onAction()
   root.container.addEventListener("change", (e) => {
     onAction();
   });
@@ -35,12 +35,16 @@ export function initTable(settings, onAction) {
   });
 
   const render = (data) => {
-    // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
+    // #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
     const nextRows = data.map((item) => {
       const row = cloneTemplate(rowTemplate);
       Object.keys(item).forEach((key) => {
-        if (key in row.elements) {
-          row.elements[key].textContent = item[key];
+        if (row.elements[key]) {
+          if (['INPUT', 'SELECT'].includes(row.elements[key].tagName)) {
+            row.elements[key].value = item[key];
+          } else {
+            row.elements[key].textContent = item[key];
+          }
         }
       });
       return row.container;
