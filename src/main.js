@@ -39,6 +39,9 @@ function collectState() {
  * Перерисовка состояния таблицы при любых изменениях
  * @param {HTMLButtonElement?} action
  */
+
+let prevFilterKey = null; // запоминаем прошлые значения поиска/фильтров 
+
 async function render(action) {
   let state = collectState(); // состояние полей из таблицы
   let query = {};
@@ -47,6 +50,22 @@ async function render(action) {
   query = applySearching(query, state, action);
   query = applyFiltering(query, state, action);
   query = applySorting(query, state, action);
+
+  // если изменились поиск, фильтры или rowsPerPage, возвращаемся на 1 страницу
+  const filterKey = JSON.stringify([
+    state.search,
+    state.date,
+    state.customer,
+    state.seller,
+    state.totalFrom,
+    state.totalTo,
+    state.rowsPerPage,
+  ]);
+  if (prevFilterKey !== null && filterKey !== prevFilterKey) {
+    state.page = 1;
+  }
+  prevFilterKey = filterKey;
+
   query = applyPagination(query, state, action);
 
   const { total, items } = await api.getRecords(query); // запрашиваем данные с собранными параметрами
@@ -90,7 +109,7 @@ const { applyFiltering, updateIndexes } = initFiltering(
   sampleTable.filter.elements,
 );
 
-const applySearching = initSearching(sampleTable.search); // передаём ключ элемента поиска
+const applySearching = initSearching("search"); // передаём ключ элемента поиска
 
 const appRoot = document.querySelector("#app");
 appRoot.appendChild(sampleTable.container);

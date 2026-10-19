@@ -23,14 +23,37 @@ export function initTable(settings, onAction) {
   });
 
   // #1.3 —  обработать события и вызвать onAction()
+  let timer;
+
   root.container.addEventListener("change", (e) => {
+    if (e.target.type === "text") return;
+    clearTimeout(timer);
     onAction();
   });
-  root.container.addEventListener("reset", (e) => {
-    setTimeout(() => onAction(), 1000);
+
+  // поиск при вводе, с небольшой задержкой
+  root.container.addEventListener("input", (e) => {
+    if (e.target.type === "text") {
+      clearTimeout(timer);
+      timer = setTimeout(() => onAction(), 300);
+    }
   });
+
+  root.container.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.target.type === "text") {
+      e.preventDefault();
+      clearTimeout(timer);
+      onAction();
+    }
+  });
+
+  root.container.addEventListener("reset", () => {
+    setTimeout(() => onAction(), 0);
+  });
+
   root.container.addEventListener("submit", (e) => {
     e.preventDefault();
+    clearTimeout(timer);
     onAction(e.submitter);
   });
 
