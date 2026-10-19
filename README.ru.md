@@ -3,7 +3,16 @@
 # Умная таблица
 
 Интерактивная таблица продаж с полным набором функций: поиск, фильтрация, сортировка, пагинация и вывод данных, полученных с сервера.
+
 ### Посмотреть demo: [click](https://yaylnt.github.io/smart-table/)
+
+Фильтрация и сортировка
+
+<img width="1100" height="571" alt="filtering" src="https://github.com/user-attachments/assets/046e6e0a-6cfe-4929-8b31-74161c2435ad" />
+
+Поиск, пагинация и сброс всех фильтров
+
+<img width="1100" height="571" alt="searching+pagination" src="https://github.com/user-attachments/assets/e55098db-2c3b-46ee-bb92-3c036f19be4e" />
 
 ## Стек
 [![Skills](https://skillicons.dev/icons?i=html,css,js,vite)](https://skillicons.dev/icons?i=html,css,js,vite)

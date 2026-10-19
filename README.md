@@ -6,6 +6,14 @@ An interactive sales table with a full set of features: search, filtering, sorti
 
 ### View demo: [click](https://yaylnt.github.io/smart-table/)
 
+Filtering and sorting
+
+<img width="1100" height="571" alt="filtering" src="https://github.com/user-attachments/assets/046e6e0a-6cfe-4929-8b31-74161c2435ad" />
+
+Searching, pagination, reset
+
+<img width="1100" height="571" alt="searching+pagination" src="https://github.com/user-attachments/assets/e55098db-2c3b-46ee-bb92-3c036f19be4e" />
+
 ## Tech Stack
 
 [![Skills](https://skillicons.dev/icons?i=html,css,js,vite)](https://skillicons.dev/icons?i=html,css,js,vite)
