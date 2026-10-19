@@ -48,8 +48,15 @@ export function initTable(settings, onAction) {
   });
 
   root.container.addEventListener("reset", () => {
-    setTimeout(() => onAction(), 0);
-  });
+  clearTimeout(timer);
+  root.container
+    .querySelectorAll('button[name="sort"]')
+    .forEach((button) => {
+      button.dataset.value = "none";
+    });
+
+  setTimeout(() => onAction(), 0);
+});
 
   root.container.addEventListener("submit", (e) => {
     e.preventDefault();
