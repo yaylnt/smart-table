@@ -1,29 +1,31 @@
-# Умная таблица
+**English** | [Русский](/README.ru.md)
 
-Интерактивная таблица продаж с полным набором функций: поиск, фильтрация, сортировка, пагинация и вывод данных, полученных с сервера.
-### Посмотреть demo: [click](https://yaylnt.github.io/smart-table/)
+# Smart Table
 
-## Стек
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=html,css,js,vite" alt="Skills" />
-</p>
+An interactive sales table with a full set of features: search, filtering, sorting, pagination, and displaying data fetched from a server.
 
-## Мой вклад в проект
+### View demo: [click](https://yaylnt.github.io/smart-table/)
 
-- Модульная архитектура: логика разбита на независимые модули (table, pagination, filtering, searching, sorting), каждый по единой схеме initModule(settings) → функция (data, state, action).
+## Tech Stack
 
-- Работа с <template>: строки, шапка, фильтры, поиск и пагинация собираются через клонирование шаблонов и привязку элементов по data-name, без ручного поиска по DOM.
+[![Skills](https://skillicons.dev/icons?i=html,css,js,vite)](https://skillicons.dev/icons?i=html,css,js,vite)
 
-- Единый обработчик событий: change, submit и reset сведены к одному вызову onAction, с preventDefault, определением нажатой кнопки через e.submitter и отложенным вызовом при reset.
+## My Contribution
 
-- Реализованы поиск, фильтрация, сортировка и пагинация: заполнение select значениями из индексов, переключение направления сортировки через карту переходов, расчёт числа страниц, обрезка данных и вывод ограниченного числа кнопок.
+- Modular architecture: the logic is split into independent modules (table, pagination, filtering, searching, sorting), each following a single pattern: `initModule(settings)` → function `(data, state, action)`.
 
-- Переход от работы с локальными данными к API: компоненты переведены на формирование объекта запроса (query) вместо прямой обработки данных, а функция рендера стала асинхронной и получает данные с сервера.
+- Template-based rendering: rows, header, filters, search and pagination are built by cloning templates and binding elements via `data-name`, with no manual DOM lookups.
 
-- Реализованы getIndexes и getRecords с fetch, URLSearchParams, мэппингом полей и кешированием по строке запроса с возможностью принудительного обновления.
+- A single event handler: `change`, `submit` and `reset` are all routed to one `onAction` call, using `preventDefault`, detecting the pressed button via `e.submitter`, and deferring the call on `reset`.
 
-- Разделены этапы применения и обновления модулей: параметры пагинации, фильтров, поиска и сортировки формируются до запроса, а перерисовка пагинатора и статуса — после получения данных.
+- Implemented search, filtering, sorting and pagination: filling `select` elements with values from indexes, switching sort direction via a transition map, calculating the number of pages, slicing data, and rendering a limited number of page buttons.
 
-- Проведён рефакторинг: логика сравнения и сортировки перенесена на сервер, неиспользуемые утилиты удалены без потери функциональности.
+- Migrated from working with local data to an API: components now build a request object (`query`) instead of processing data directly, and the render function became asynchronous and fetches data from the server.
 
-- Отладка и проверка: тестирование с разными датасетами, проверка краевых случаев, ручная проверка всех сценариев и отсутствия ошибок в консоли.
+- Implemented `getIndexes` and `getRecords` using `fetch`, `URLSearchParams`, field mapping, and caching by query string with an option to force a refresh.
+
+- Separated the "apply" and "update" stages of the modules: pagination, filter, search and sort parameters are built before the request, while the paginator and status are re-rendered after the data arrives.
+
+- Refactored: comparison and sorting logic was moved to the server, and unused utilities were removed without losing functionality.
+
+- Debugging and verification: tested with different datasets, checked edge cases, manually verified all scenarios and confirmed there are no console errors.
